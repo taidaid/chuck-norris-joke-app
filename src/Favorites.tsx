@@ -1,11 +1,21 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
+import { JokeInterface } from "./interfaces";
+import Joke from "./Joke/Joke";
 
-const Favorites = () => {
+interface Props {
+  favoriteJokes: JokeInterface[];
+}
+
+const Favorites = ({ favoriteJokes }: Props) => {
+  const favoriteJokesList = favoriteJokes.map((joke) => (
+    <Joke key={joke.id} jokeText={joke.joke} jokeCategories={joke.categories} />
+  ));
   return (
     <Row>
       <Col className="text-center">
-        <h2>Favorites</h2>
+        <h2>All-Time Favorites</h2>
+        {favoriteJokesList}
       </Col>
     </Row>
   );
