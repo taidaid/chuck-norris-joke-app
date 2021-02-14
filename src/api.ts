@@ -5,5 +5,7 @@ export const httpRequest = (url: string, options?: any) =>
     .then((response) => response.json())
     .catch((error) => console.error(error));
 
-export const get10Jokes = (): Promise<JokeInterface[]> =>
-  httpRequest("http://api.icndb.com/jokes/random/10");
+export const get10Jokes = (): Promise<{
+  type: string;
+  value: JokeInterface[];
+}> => httpRequest("http://api.icndb.com/jokes/random/10");
