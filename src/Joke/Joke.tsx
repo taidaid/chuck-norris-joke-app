@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Joke = ({ jokeText, jokeCategories }: Props) => {
-  console.log(jokeCategories);
   const jokeCategoriesList = jokeCategories.map((category, i) => (
     <li
       key={`${category}-${i}`}

@@ -4,6 +4,7 @@ import Header from "./Header";
 import { Container } from "react-bootstrap";
 import Favorites from "./Favorites";
 import { JokeInterface } from "./interfaces";
+import GetJokeButton from "./GetJokeButton";
 
 function App() {
   const exampleJoke: JokeInterface = {
@@ -14,10 +15,13 @@ function App() {
   const [favoriteJokes, setFavoriteJokes] = useState<JokeInterface[]>([
     exampleJoke,
   ]);
+  const [random10Jokes, setRandom10Jokes] = useState<JokeInterface[]>([]);
+
   return (
     <Container className="App">
       <Header />
       <Favorites favoriteJokes={favoriteJokes} />
+      <GetJokeButton setRandom10Jokes={setRandom10Jokes} />
     </Container>
   );
 }
