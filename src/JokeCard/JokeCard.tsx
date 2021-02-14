@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import "./JokeCard.css";
+import JokeCardFooter from "./JokeCardFooter";
 
 interface Props {
   jokeText: string;
@@ -8,31 +9,16 @@ interface Props {
 }
 
 const JokeCard = ({ jokeText, jokeCategories }: Props) => {
-  const jokeCategoriesList = jokeCategories.map((category, i) => (
-    <li
-      key={`${category}-${i}`}
-      className="joke-categories-list joke-categories-list__joke-category"
-    >
-      {category}
-    </li>
-  ));
-
   return (
-    <Card className="joke">
+    <Card className="joke shadow-sm mb-3">
       <Card.Body>
         <Row>
           <Col>
-            <p>{jokeText}</p>
+            <p>{jokeText.replace(/&quot;/g, '"')}</p>
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer>
-        <Row>
-          <Col>
-            <ul className="joke-categories-list">{jokeCategoriesList}</ul>
-          </Col>
-        </Row>
-      </Card.Footer>
+      <JokeCardFooter jokeCategories={jokeCategories} />
     </Card>
   );
 };

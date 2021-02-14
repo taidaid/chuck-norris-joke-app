@@ -9,3 +9,7 @@
 .joke-categories-list__joke-category {
   padding: 0 5px;
 }
+
+.card-footer {
+  padding: 2px 0;
+}
