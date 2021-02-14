@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
-import "./Joke.css";
+import "./JokeCard.css";
 
 interface Props {
   jokeText: string;
   jokeCategories: string[];
 }
 
-const Joke = ({ jokeText, jokeCategories }: Props) => {
+const JokeCard = ({ jokeText, jokeCategories }: Props) => {
   const jokeCategoriesList = jokeCategories.map((category, i) => (
     <li
       key={`${category}-${i}`}
@@ -37,4 +37,4 @@ const Joke = ({ jokeText, jokeCategories }: Props) => {
   );
 };
 
-export default Joke;
+export default JokeCard;

@@ -1,4 +1,4 @@
-import { JokeInterface } from "./interfaces";
+import { Joke } from "./interfaces";
 
 export const httpRequest = (url: string, options?: any) =>
   fetch(url, options)
@@ -7,5 +7,5 @@ export const httpRequest = (url: string, options?: any) =>
 
 export const get10Jokes = (): Promise<{
   type: string;
-  value: JokeInterface[];
+  value: Joke[];
 }> => httpRequest("http://api.icndb.com/jokes/random/10");

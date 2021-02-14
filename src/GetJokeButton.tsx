@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { get10Jokes } from "./api";
-import { JokeInterface } from "./interfaces";
+import { Joke } from "./interfaces";
 
 interface Props {
-  setRandom10Jokes: Dispatch<SetStateAction<JokeInterface[]>>;
+  setRandom10Jokes: Dispatch<SetStateAction<Joke[]>>;
   handleShowModal: () => void;
 }
 

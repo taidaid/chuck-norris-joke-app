@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
-import { JokeInterface } from "./interfaces";
-import Joke from "./Joke/Joke";
+import { Joke } from "./interfaces";
+import JokeCard from "./JokeCard/JokeCard";
 
 interface Props {
   showModal: boolean;
   handleClose: () => void;
-  random10Jokes: JokeInterface[];
+  random10Jokes: Joke[];
 }
 
 const RandomJokesModal = ({ showModal, handleClose, random10Jokes }: Props) => {
@@ -15,11 +15,11 @@ const RandomJokesModal = ({ showModal, handleClose, random10Jokes }: Props) => {
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         {random10Jokes.map((joke) => (
-          <Joke
+          <JokeCard
             key={joke.id}
             jokeText={joke.joke}
             jokeCategories={joke.categories}
-          ></Joke>
+          ></JokeCard>
         ))}
       </Modal.Body>
       <Modal.Footer></Modal.Footer>
