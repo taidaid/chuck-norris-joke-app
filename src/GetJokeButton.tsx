@@ -5,11 +5,15 @@ import { JokeInterface } from "./interfaces";
 
 interface Props {
   setRandom10Jokes: Dispatch<SetStateAction<JokeInterface[]>>;
+  handleShowModal: () => void;
 }
 
-const GetJokeButton = ({ setRandom10Jokes }: Props) => {
+const GetJokeButton = ({ setRandom10Jokes, handleShowModal }: Props) => {
   const handleClick = () => {
-    get10Jokes().then((data) => setRandom10Jokes(data.value));
+    get10Jokes().then((data) => {
+      setRandom10Jokes(data.value);
+      handleShowModal();
+    });
   };
   return (
     <Row className="fixed-bottom text-center">
