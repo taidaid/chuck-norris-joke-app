@@ -17,6 +17,7 @@ const Favorites = ({ favoriteJokes, handleClick }: Props) => {
     <Row>
       <Col className="text-center">
         <h2>All-Time Favorites</h2>
+        <p>{favoriteJokes.length}</p>
         {favoriteJokesList}
       </Col>
     </Row>
