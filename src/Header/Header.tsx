@@ -2,19 +2,23 @@ import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import "./Header.css";
 
-const Header = () => {
-  return (
-    <header className="text-center w-100 d-flex">
-      <Row>
-        <Col>
-          <h1>Chuck Jokes</h1>
-        </Col>
+interface Props {
+  handleClick: () => void;
+}
 
-        <Col>
-          <Button className="mt-3">Add Random Jokes</Button>
-        </Col>
-      </Row>
-    </header>
+const Header = ({ handleClick }: Props) => {
+  return (
+    <Row className="text-center mb-md-5">
+      <Col xs="12" md={{ offset: "2", span: "8" }}>
+        <h1>Chuck Jokes</h1>
+      </Col>
+
+      <Col>
+        <Button className="my-3" onClick={handleClick}>
+          Add Random Jokes
+        </Button>
+      </Col>
+    </Row>
   );
 };
 
