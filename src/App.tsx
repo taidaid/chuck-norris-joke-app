@@ -12,6 +12,9 @@ function App() {
   const maxFavJokes = 10;
   const [favoriteJokes, setFavoriteJokes] = useState<Joke[]>([]);
   const [random10Jokes, setRandom10Jokes] = useState<Joke[]>([]);
+  const [addJokeTimers, setAddJokeTimers] = useState<
+    ReturnType<typeof setTimeout>[]
+  >([]);
   const [showModal, setShowModal] = useState(false);
 
   const handleRemoveFromFavorites = (joke: Joke) => {
@@ -30,9 +33,12 @@ function App() {
   const handleAddToFavorites = (joke: Joke) => {
     const isJokeAlreadyFavorite = (favoriteJokes: Joke[]) =>
       !!favoriteJokes.find((favJoke) => joke.id === favJoke.id);
-    if (isJokeAlreadyFavorite(favoriteJokes) || favoriteJokes.length >= 10)
-      return;
 
+    if (isJokeAlreadyFavorite(favoriteJokes)) {
+      return;
+    }
+
+    // if add favorites is not full, add joke
     setFavoriteJokes((prevState) =>
       prevState.length < maxFavJokes ? [...prevState, joke] : prevState
     );
@@ -42,12 +48,12 @@ function App() {
   const handleShowModal = () => setShowModal(true);
 
   const handleAddRandomJokesOnTimer = () => {
-    // if there is room in favorites
-    if (favoriteJokes.length < maxFavJokes) {
+    // if there is room in favorites and no timers exist
+    if (favoriteJokes.length < maxFavJokes && addJokeTimers.length === 0) {
       // record which jokes are stacked to be added
       let newJokeIdStack: number[] = [];
 
-      // find jokes that aren't in favorites or newJokeIdStack
+      // find jokes that aren't in favorites or newJokeIdStack (queue for adding jokes by timer)
       const findNonDuplicateJoke = (
         newJokes: Joke[],
         favoriteJokes: Joke[]
@@ -58,7 +64,11 @@ function App() {
             !favJokeIds.includes(newJoke.id) &&
             !newJokeIdStack.includes(newJoke.id)
         );
+        if (!nonDuplicateJokes[0]) {
+          return;
+        }
         newJokeIdStack.push(nonDuplicateJokes[0].id);
+
         return nonDuplicateJokes[0];
       };
 
@@ -70,19 +80,33 @@ function App() {
         let delay = 0;
         // while the count is less than 10, queue up another joke to add
         while (i < maxFavJokes) {
-          setTimeout(() => {
+          const timer = setTimeout(() => {
             const nonDuplicateJoke = findNonDuplicateJoke(
               newJokes,
               favoriteJokes
             );
-            handleAddToFavorites(nonDuplicateJoke);
+            if (nonDuplicateJoke) {
+              handleAddToFavorites(nonDuplicateJoke);
+            }
           }, delay);
+          setAddJokeTimers((prevState) => [...prevState, timer]);
           delay += 5000;
           i++;
         }
       });
+    } else if (addJokeTimers.length) {
+      addJokeTimers.forEach((addJokeTimer) => clearTimeout(addJokeTimer));
+      setAddJokeTimers([]);
     }
   };
+
+  // when favorite jokes count has reached max, be sure all timers are cleared
+  useEffect(() => {
+    if (favoriteJokes.length === maxFavJokes && addJokeTimers.length) {
+      addJokeTimers.forEach((timer) => clearTimeout(timer));
+      setAddJokeTimers([]);
+    }
+  }, [favoriteJokes, addJokeTimers]);
 
   // check for jokes from previous session in local storage
   useEffect(() => {
