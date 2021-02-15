@@ -4,9 +4,10 @@ import "./Header.css";
 
 interface Props {
   handleClick: () => void;
+  addJokeTimers: ReturnType<typeof setTimeout>[];
 }
 
-const Header = ({ handleClick }: Props) => {
+const Header = ({ handleClick, addJokeTimers }: Props) => {
   return (
     <Row className="text-center mb-md-5">
       <Col xs="12" md={{ offset: "2", span: "8" }}>
@@ -14,8 +15,13 @@ const Header = ({ handleClick }: Props) => {
       </Col>
 
       <Col>
-        <Button className="my-3" onClick={handleClick}>
-          Add Random Jokes
+        <Button
+          className={`my-3 ${addJokeTimers.length && "btn-danger"}`}
+          onClick={handleClick}
+        >
+          {`${
+            addJokeTimers.length === 0 ? "Add Random Jokes" : "Clear Timers"
+          } `}
         </Button>
       </Col>
     </Row>
