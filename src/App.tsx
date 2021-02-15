@@ -123,7 +123,10 @@ function App() {
 
   return (
     <Container className="App">
-      <Header handleClick={handleAddRandomJokesOnTimer} />
+      <Header
+        handleClick={handleAddRandomJokesOnTimer}
+        addJokeTimers={addJokeTimers}
+      />
       <Favorites
         favoriteJokes={favoriteJokes}
         handleClick={handleRemoveFromFavorites}
