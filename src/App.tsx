@@ -29,7 +29,7 @@ function App() {
 
   const handleAddToFavorites = (joke: Joke) => {
     const isJokeAlreadyFavorite = (favoriteJokes: Joke[]) =>
-      favoriteJokes.find((favJoke) => joke.id === favJoke.id);
+      !!favoriteJokes.find((favJoke) => joke.id === favJoke.id);
     if (isJokeAlreadyFavorite(favoriteJokes) || favoriteJokes.length >= 10)
       return;
 
@@ -67,7 +67,7 @@ function App() {
         const newJokes = data.value;
 
         let i = favoriteJokes.length;
-        let delay = 1000;
+        let delay = 0;
         // while the count is less than 10, queue up another joke to add
         while (i < maxFavJokes) {
           setTimeout(() => {
@@ -77,7 +77,7 @@ function App() {
             );
             handleAddToFavorites(nonDuplicateJoke);
           }, delay);
-          delay += 1000;
+          delay += 5000;
           i++;
         }
       });
