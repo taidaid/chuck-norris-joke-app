@@ -5,8 +5,9 @@ import { Container } from "react-bootstrap";
 import Favorites from "./Favorites/Favorites";
 import { Joke } from "./interfaces";
 import GetJokeButton from "./GetJokeButton";
-import RandomJokesModal from "./RandomJokesModal";
+import RandomJokesModal from "./RandomJokesModal/RandomJokesModal";
 import { get10Jokes } from "./api";
+import { isJokeAlreadyFavorite } from "./utils";
 
 function App() {
   const maxFavJokes = 10;
@@ -31,10 +32,7 @@ function App() {
   };
 
   const handleAddToFavorites = (joke: Joke) => {
-    const isJokeAlreadyFavorite = (favoriteJokes: Joke[]) =>
-      !!favoriteJokes.find((favJoke) => joke.id === favJoke.id);
-
-    if (isJokeAlreadyFavorite(favoriteJokes)) {
+    if (isJokeAlreadyFavorite(favoriteJokes, joke)) {
       return;
     }
 
@@ -140,6 +138,7 @@ function App() {
         handleClose={handleCloseModal}
         random10Jokes={random10Jokes}
         handleClick={handleAddToFavorites}
+        favoriteJokes={favoriteJokes}
       />
     </Container>
   );
