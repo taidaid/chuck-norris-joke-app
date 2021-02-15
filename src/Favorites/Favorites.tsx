@@ -10,9 +10,12 @@ interface Props {
 }
 
 const Favorites = ({ favoriteJokes, handleClick }: Props) => {
-  const favoriteJokesList = favoriteJokes.map((joke) => (
-    <JokeCard key={joke.id} joke={joke} handleClick={handleClick} />
-  ));
+  const favoriteJokesList = favoriteJokes
+    .slice(0)
+    .reverse()
+    .map((joke) => (
+      <JokeCard key={joke.id} joke={joke} handleClick={handleClick} />
+    ));
   return (
     <Row>
       <Col className="text-center">
