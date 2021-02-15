@@ -13,7 +13,6 @@ interface Props {
 
 const JokeCard = ({ joke, handleClick, favoriteJokes }: Props) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
   const handleHover = (hovered: boolean) => {
     setIsHovered(hovered);
   };
@@ -33,13 +32,7 @@ const JokeCard = ({ joke, handleClick, favoriteJokes }: Props) => {
   return (
     <Card
       className={cardClasses()}
-      onClick={() => {
-        setIsClicked(true);
-        setTimeout(() => {
-          setIsClicked(false);
-        }, 500);
-        handleClick(joke);
-      }}
+      onClick={() => handleClick(joke)}
       style={{ cursor: "pointer" }}
       onMouseOver={() => handleHover(true)}
       onMouseOut={() => handleHover(false)}
