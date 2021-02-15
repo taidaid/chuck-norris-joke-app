@@ -5,15 +5,12 @@ import JokeCard from "./JokeCard/JokeCard";
 
 interface Props {
   favoriteJokes: Joke[];
+  handleClick: (joke: Joke) => void;
 }
 
-const Favorites = ({ favoriteJokes }: Props) => {
+const Favorites = ({ favoriteJokes, handleClick }: Props) => {
   const favoriteJokesList = favoriteJokes.map((joke) => (
-    <JokeCard
-      key={joke.id}
-      jokeText={joke.joke}
-      jokeCategories={joke.categories}
-    />
+    <JokeCard key={joke.id} joke={joke} handleClick={handleClick} />
   ));
   return (
     <Row>

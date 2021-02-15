@@ -17,13 +17,37 @@ function App() {
   const [random10Jokes, setRandom10Jokes] = useState<Joke[]>([]);
   const [showModal, setShowModal] = useState(false);
 
+  const handleRemoveFromFavorites = (joke: Joke) => {
+    const foundJokeIndex = favoriteJokes.findIndex(
+      (favJoke) => joke.id === favJoke.id
+    );
+    if (foundJokeIndex !== -1) {
+      setFavoriteJokes((prevState) =>
+        prevState.filter((_, i) => i !== foundJokeIndex)
+      );
+    } else {
+      console.error("Joke not found");
+    }
+  };
+
+  const handleAddToFavorites = (joke: Joke) => {
+    const isJokeAlreadyFavorite = favoriteJokes.find(
+      (favJoke) => joke.id === favJoke.id
+    );
+    if (isJokeAlreadyFavorite) return;
+    setFavoriteJokes((prevState) => [...prevState, joke]);
+  };
+
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
   return (
     <Container className="App">
       <Header />
-      <Favorites favoriteJokes={favoriteJokes} />
+      <Favorites
+        favoriteJokes={favoriteJokes}
+        handleClick={handleRemoveFromFavorites}
+      />
       <GetJokeButton
         setRandom10Jokes={setRandom10Jokes}
         handleShowModal={handleShowModal}
@@ -32,6 +56,7 @@ function App() {
         showModal={showModal}
         handleClose={handleCloseModal}
         random10Jokes={random10Jokes}
+        handleClick={handleAddToFavorites}
       />
     </Container>
   );

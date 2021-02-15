@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import { Joke } from "../interfaces";
 import "./JokeCard.css";
 import JokeCardFooter from "./JokeCardFooter";
 
 interface Props {
-  jokeText: string;
-  jokeCategories: string[];
+  joke: Joke;
+  handleClick: (joke: Joke) => void;
 }
 
-const JokeCard = ({ jokeText, jokeCategories }: Props) => {
+const JokeCard = ({ joke, handleClick }: Props) => {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const handleHover = (hovered: boolean) => {
+    setIsHovered(hovered);
+  };
+
   return (
-    <Card className="joke shadow-sm mb-3">
+    <Card
+      className={`joke shadow-sm mb-4 border-dark ${isHovered && "bg-primary"}`}
+      onClick={() => handleClick(joke)}
+      style={{ cursor: "pointer" }}
+      onMouseOver={() => handleHover(true)}
+      onMouseOut={() => handleHover(false)}
+    >
       <Card.Body>
         <Row>
           <Col>
-            <p>{jokeText.replace(/&quot;/g, '"')}</p>
+            <p>{joke.joke.replace(/&quot;/g, '"')}</p>
           </Col>
         </Row>
       </Card.Body>
-      <JokeCardFooter jokeCategories={jokeCategories} />
+      <JokeCardFooter jokeCategories={joke.categories} />
     </Card>
   );
 };
