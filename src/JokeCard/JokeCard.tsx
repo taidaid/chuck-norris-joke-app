@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Joke } from "../interfaces";
 import "./JokeCard.css";
