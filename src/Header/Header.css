@@ -1,0 +1,9 @@
+h1 {
+  font-size: 3.5vw;
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 26px;
+  }
+}

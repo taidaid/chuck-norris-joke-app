@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "bootswatch/dist/darkly/bootstrap.min.css";
-import Header from "./Header";
+import Header from "./Header/Header";
 import { Container } from "react-bootstrap";
-import Favorites from "./Favorites";
+import Favorites from "./Favorites/Favorites";
 import { Joke } from "./interfaces";
 import GetJokeButton from "./GetJokeButton";
 import RandomJokesModal from "./RandomJokesModal";

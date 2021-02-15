@@ -1,7 +1,8 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { Joke } from "./interfaces";
-import JokeCard from "./JokeCard/JokeCard";
+import { Joke } from "../interfaces";
+import JokeCard from "../JokeCard/JokeCard";
+import "./Favorites.css";
 
 interface Props {
   favoriteJokes: Joke[];
